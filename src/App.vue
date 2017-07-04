@@ -1,13 +1,19 @@
 <template>
   <div id="app">
-    <router-view></router-view>
+    <header-nav>
+      <router-view></router-view>
+    </header-nav>
   </div>
 </template>
 
 <script>
-export default {
-  name: 'app'
-}
+  import HeaderNav from './components/public/headerNav.vue';
+  export default {
+    name: 'app',
+    components: {
+      HeaderNav
+    }
+  }
 </script>
 
 <style>

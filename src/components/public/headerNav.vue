@@ -61,17 +61,16 @@
             </div>
         </div>
         <Row type="flex">
-            <i-col span="5" class="layout-menu-left">
-                <Menu active-name="1-2" theme="dark" width="auto" :open-names="['1']">
+            <i-col span="3" class="layout-menu-left">
+                <Menu :active-name="activeName" theme="dark" width="auto" accordion="true" :open-names="['1']" @on-select="goPath">
                     <div class="layout-logo-left"></div>
                     <Submenu name="1">
                         <template slot="title">
                             <Icon type="ios-navigate"></Icon>
-                            导航一
+                            订单管理
                         </template>
-                        <Menu-item name="1-1">选项 1</Menu-item>
-                        <Menu-item name="1-2">选项 2</Menu-item>
-                        <Menu-item name="1-3">选项 3</Menu-item>
+                        <Menu-item name="/home">任务大厅</Menu-item>
+                        <Menu-item name="/order">已接订单</Menu-item>
                     </Submenu>
                     <Submenu name="2">
                         <template slot="title">
@@ -91,11 +90,10 @@
                     </Submenu>
                 </Menu>
             </i-col>
-            <i-col span="19">
-                <div class="layout-header"></div>
+            <i-col span="21">
                 <div class="layout-breadcrumb">
                     <Breadcrumb>
-                        <Breadcrumb-item href="#">首页</Breadcrumb-item>
+                        <Breadcrumb-item href="/home">首页</Breadcrumb-item>
                         <Breadcrumb-item href="#">应用中心</Breadcrumb-item>
                         <Breadcrumb-item>某应用</Breadcrumb-item>
                     </Breadcrumb>
@@ -115,6 +113,21 @@
 </template>
 <script>
     export default {
+      data () {
+        return {
+          current_menu: ""
+        }
+      },
+      computed: {
+        activeName () {
+          return '1-/home'
+        }
+      },
+      methods: {
+        goPath (name) {
+          this.$router.push({ path: name, params: { userId: 123 }})
+        }
+      }
 
     }
 </script>

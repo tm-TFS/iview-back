@@ -11,7 +11,7 @@
                 <Option v-for="item in cityList" :value="item.value" :key="item">{{ item.label }}</Option>
               </i-select>
             </span>
-          <i-input v-model="server_model" placeholder="发布频道" style="width: 200px"></i-input>
+          <i-input v-model="server_model" placeholder="发布频道123" style="width: 200px"></i-input>
           <Input-numbert v-model="server_model" :min="1" placeholder="代练时限" style="width: 200px"></Input-numbert>
           <i-input v-model="server_model" placeholder="所在区服..." style="width: 200px"></i-input>
         </i-col>
