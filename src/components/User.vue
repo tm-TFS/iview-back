@@ -33,8 +33,22 @@
         server_model: '',
         rateCol: [
           {
+            m_img: 'http://www.thinkphptest.com/public/static/img/moren.png',
             title: '头像',
-            key: 'avatar'
+            key: 'avatar',
+            render: (h, params) => {
+              return h('div', [
+                h('img', {
+                  attrs: {
+                    src: params.row.avatar ? params.row.avatar : 'http://www.thinkphptest.com/public/static/img/moren.png'
+                  },
+                  style: {
+                    width: '70px',
+                    height: '70px'
+                  },
+                })
+              ]);
+            }
           },
           {
             title: '昵称',
@@ -64,7 +78,7 @@
         rateList: [
           {
             name: '王小明',
-            avatar: 'http://192.168.1.3/Public/uploads/shopimg/20170622/21102200112538.jpg',
+            avatar: 'http://linglong.mengdie.com/static/index/src/img/index/t6.png',
             address: '北京市朝阳区芍药居',
 
           },
