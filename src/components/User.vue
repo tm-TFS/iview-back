@@ -33,23 +33,40 @@
         server_model: '',
         rateCol: [
           {
-            title: '姓名',
+            title: '头像',
+            key: 'avatar'
+          },
+          {
+            title: '昵称',
             key: 'name'
           },
           {
-            title: '年龄',
-            key: 'age'
+            title: '手机号码',
+            key: 'mobile'
           },
           {
-            title: '地址',
-            key: 'address'
+            title: 'openid',
+            key: 'openid'
+          },
+          {
+            title: '联系手机',
+            key: 'contactMobile'
+          },
+          {
+            title: '绑定手机',
+            key: 'contactMobile'
+          },
+          {
+            title: '登录验证',
+            key: 'checkFunc'
           }
         ],
         rateList: [
           {
             name: '王小明',
-            age: 18,
-            address: '北京市朝阳区芍药居'
+            avatar: 'http://192.168.1.3/Public/uploads/shopimg/20170622/21102200112538.jpg',
+            address: '北京市朝阳区芍药居',
+
           },
           {
             name: '张小刚',

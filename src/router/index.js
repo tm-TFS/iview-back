@@ -34,12 +34,14 @@ const routers = [
   {
     path: '/order',
     name: 'order',
-    component: Order
+    component: Order,
+    meta: { requiresAuth: true }
   },
   {
     path: '/user',
     name: 'user',
-    component: User
+    component: User,
+    meta: { requiresAuth: true }
   }
 ];
 export default routers;
