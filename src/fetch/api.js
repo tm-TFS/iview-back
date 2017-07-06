@@ -1,5 +1,4 @@
 import axios from './api_config'
-import iview from 'iview';
 
 //post 请求
 function fetchPost(url, params = {}) {
@@ -8,6 +7,7 @@ function fetchPost(url, params = {}) {
   if (token) {
     params.token = token;
   }
+
   return new Promise((resolve, reject) => {
     axios({
       method: 'post',

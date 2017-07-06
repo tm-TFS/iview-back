@@ -21,7 +21,7 @@
 
           <Row>
             <Form-item>
-              <Button type="primary" @click="handleSubmit('formInline')">登录</Button>
+              <Button :loading="loading" type="primary" @click="handleSubmit('formInline')">登录</Button>
             </Form-item>
           </Row>
 
@@ -43,9 +43,15 @@
 </style>
 <script>
   import api from '@/fetch/api';
+
+  let app = {};
   export default {
+      mounted () {
+        app = this;
+      },
     data () {
       return {
+        loading: false,
         formInline: {
           user: '',
           password: ''
@@ -61,20 +67,30 @@
         }
       }
     },
+    watch: {
+      loading (val, oldVal) {
+        if(val){
+          app.$Message.loading({
+            content: '正在加载中...',
+            duration: 0
+          });
+        } else {
+          app.$Message.destroy();
+        }
+      }
+    },
     methods: {
       handleSubmit(name) {
+        this.loading = true;
         this.$refs[name].validate((valid) => {
           if (valid) {
-            this.$Message.loading({
-              content: '正在加载中...',
-              duration: 0
-            });
 
             api.fetchPost('agoods/test', {}).then((data) => {
               setTimeout(() => {
-                this.$Message.destroy();
+                this.loading = false;
                 this.$Message.success(data);
               }, 3000);
+              api.setCookie('token',123123);
             }).catch(err => {
               this.$Message.error(err);
             })
