@@ -20,6 +20,7 @@
 import Home from '@/components/Home';
 import User from '@/components/User';
 import Order from '@/components/Order';
+import Login from '@/components/Login';
 
 const routers = [
   {
@@ -42,6 +43,11 @@ const routers = [
     name: 'user',
     component: User,
     meta: { requiresAuth: true }
+  },
+  {
+    path: '/login',
+    name: 'login',
+    component: Login
   }
 ];
 export default routers;
