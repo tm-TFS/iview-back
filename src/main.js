@@ -48,3 +48,5 @@ let vm = new Vue({
   template: '<App/>',
   components: { App }
 });
+
+export default router;

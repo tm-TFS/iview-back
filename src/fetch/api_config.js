@@ -1,5 +1,6 @@
 import axios from 'axios'
 import qs from 'qs'
+import router from '../main';
 
 axios.defaults.timeout = 5000;
 axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded;charset=UTF-8';
@@ -19,13 +20,19 @@ axios.interceptors.request.use((config) => {
 
 //code状态码200判断
 axios.interceptors.response.use((res) =>{
-  if(res.status != '200'){
-    console.log(res.data.msg );
-    return Promise.reject(res);
-  }
   return res;
 }, (error) => {
   console.log("网络异常");
+  console.log(error.response);
+  if (error.response) {
+    switch (error.response.status) {
+      case 401:
+        router.replace({
+          path: '/home',
+          query: {redirect: router.currentRoute.fullPath}
+        })
+    }
+  }
   return Promise.reject(error);
 });
 

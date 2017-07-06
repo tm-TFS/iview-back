@@ -11,17 +11,23 @@
   import HeaderNav from './components/public/headerNav.vue';
   export default {
     name: 'app',
-    data () {
+    /*data () {
       return {
           showLogin: 0
       }
-    },
-    mounted() {
-        console.log(this.$route);
-      if(this.$route.path === '/login'){
-          this.showLogin = 1;
+    },*/
+    computed: {
+      showLogin () {
+          return this.$route.path === '/login' ? 1 : 0
       }
     },
+    /*mounted() {
+      if(this.$route.path === '/login'){
+          this.showLogin = 1;
+      } else {
+        this.showLogin = 0;
+      }
+    },*/
     components: {
       HeaderNav
     }
