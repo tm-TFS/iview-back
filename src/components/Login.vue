@@ -42,6 +42,7 @@
   }
 </style>
 <script>
+  import api from '@/fetch/api';
   export default {
     data () {
       return {
@@ -64,11 +65,18 @@
       handleSubmit(name) {
         this.$refs[name].validate((valid) => {
           if (valid) {
-            this.$Message.success('提交成功!');
-            fetchPost('test').then(resolve => {
-              console.log(resolve);
-            }, reject => {
-              console.log(reject);
+            this.$Message.loading({
+              content: '正在加载中...',
+              duration: 0
+            });
+
+            api.fetchPost('agoods/test', {}).then((data) => {
+              setTimeout(() => {
+                this.$Message.destroy();
+                this.$Message.success(data);
+              }, 3000);
+            }).catch(err => {
+              this.$Message.error(err);
             })
           } else {
             this.$Message.error('表单验证失败!');

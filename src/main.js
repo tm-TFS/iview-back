@@ -5,7 +5,7 @@ import App from './App'
 import iView from 'iview';
 import VueRouter from 'vue-router';
 import Routers from './router';
-import {getCookie} from './fetch/api';
+import api from './fetch/api';
 import 'iview/dist/styles/iview.css';
 
 Vue.config.productionTip = false;
@@ -25,7 +25,7 @@ router.beforeEach((to, from, next) => {
   iView.LoadingBar.start(); //iview 加载条
 
   //如果路由中设置了meta.requiresAuth 即 需要token验证 ， 若token 不存在 则重定向至 登录界面
-  if (to.matched.some(record => record.meta.requiresAuth) && getCookie('token')) {
+  if (to.matched.some(record => record.meta.requiresAuth) && api.getCookie('token')) {
     next({
       path: '/login',
       query: { redirect: to.fullPath }
@@ -42,7 +42,7 @@ router.afterEach(() => {
 
 
 /* eslint-disable no-new */
-new Vue({
+let vm = new Vue({
   el: '#app',
   router,
   template: '<App/>',
