@@ -26,7 +26,7 @@
   </div>
 </template>
 <script>
-  import ISelect from "../../node_modules/iview/src/components/select/select";
+  import ISelect from "../../../node_modules/iview/src/components/select/select";
   export default {
     data () {
       return {

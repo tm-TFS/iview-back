@@ -72,7 +72,7 @@
     </div>
     <Row type="flex">
       <i-col span="3" class="layout-menu-left">
-        <Menu active-name="/home" theme="dark" width="auto" :accordion="true" :open-names="openNames" @on-select="goPath">
+        <Menu active-name="/home" ref="leftMenu" theme="dark" width="auto" :accordion="true" :open-names="openNames" @on-select="goPath">
           <div class="layout-logo-left"></div>
 
           <Submenu v-for="nav in naveList" :key="nav.menu_name" :name="nav.menu_name" >
@@ -141,11 +141,16 @@
             })
         }
       },
+    watch: {
+      $route (val, oldVal) {
+        console.log(val.path);
+        this.$refs.leftMenu.currentActiveName = val.path;
+      }
+    },
     data () {
       return {
         current_menu: "",
         openNames: ['1'],
-        activeName: '',
         bread2: {},
         naveList: [
           {
