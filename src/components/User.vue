@@ -27,20 +27,21 @@
 </template>
 <script>
   import ISelect from "../../node_modules/iview/src/components/select/select";
+  import m_img from "../assets/moren.png";
   export default {
     data () {
       return {
         server_model: '',
         rateCol: [
           {
-            m_img: 'http://www.thinkphptest.com/public/static/img/moren.png',
+            m_img: '',
             title: '头像',
             key: 'avatar',
             render: (h, params) => {
               return h('div', [
                 h('img', {
                   attrs: {
-                    src: params.row.avatar ? params.row.avatar : 'http://www.thinkphptest.com/public/static/img/moren.png'
+                    src: params.row.avatar ? params.row.avatar : m_img
                   },
                   style: {
                     width: '70px',

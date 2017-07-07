@@ -8,11 +8,11 @@
             <span>
               所在区服
               <i-select v-model="server_model" size="small" style="width:100px">
-                <Option v-for="item in cityList" :value="item.value" :key="item">{{ item.label }}</Option>
+                <Option v-for="item in cityList" :value="item.value" :key="item.value">{{ item.label }}</Option>
               </i-select>
             </span>
           <i-input v-model="server_model" placeholder="发布频道123" style="width: 200px"></i-input>
-          <Input-numbert v-model="server_model" :min="1" placeholder="代练时限" style="width: 200px"></Input-numbert>
+          <Input-number v-model="price_model" :min="1" placeholder="代练时限" style="width: 200px"></Input-number>
           <i-input v-model="server_model" placeholder="所在区服..." style="width: 200px"></i-input>
         </i-col>
         <i-col span="4">
@@ -31,6 +31,21 @@
     data () {
       return {
         server_model: '',
+        price_model: 0,
+        cityList: [
+          {
+              value: 'wx01',
+            label: '微信一区'
+          },
+          {
+              value: 'wx02',
+            label: '微信二区'
+          },
+          {
+              value: 'qq01',
+            label: 'QQ一区'
+          },
+        ],
         rateCol: [
           {
             title: '姓名',

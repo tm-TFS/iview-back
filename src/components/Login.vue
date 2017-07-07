@@ -81,16 +81,30 @@
     },
     methods: {
       handleSubmit(name) {
-        this.loading = true;
         this.$refs[name].validate((valid) => {
           if (valid) {
+            let params = {
+              account: this.formInline.user,
+              password: this.formInline.password
+            };
+            api.fetchPost('index/test', params).then((data) => {
 
-            api.fetchPost('agoods/test', {}).then((data) => {
+              //控制加载条
+              this.loading = true;
               setTimeout(() => {
                 this.loading = false;
-                this.$Message.success(data);
+                this.$Message.success('登录成功！');
               }, 3000);
-              api.setCookie('token',123123);
+              api.setCookie('token',data.token);
+;
+              let redirect = this.$route.query.redirect;
+              // redirect - token 验证失败传入
+              if(redirect){
+                  this.$router.push({path: redirect})
+              } else {
+                this.$router.push({path: '/'})
+              }
+
             }).catch(err => {
               this.$Message.error(err);
             })
