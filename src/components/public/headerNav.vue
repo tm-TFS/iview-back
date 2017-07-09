@@ -72,7 +72,7 @@
     </div>
     <Row type="flex">
       <i-col span="3" class="layout-menu-left">
-        <Menu active-name="/home" ref="leftMenu" theme="dark" width="auto" :accordion="true" :open-names="openNames" @on-select="goPath">
+        <Menu active-name="/home" ref="leftMenu" theme="dark" width="auto" :accordion="true" :open-names="[nave_checked.openName]" @on-select="goPath">
           <div class="layout-logo-left"></div>
 
           <Submenu v-for="nav in naveList" :key="nav.menu_name" :name="nav.menu_name" >
@@ -115,8 +115,8 @@
         <div class="layout-breadcrumb">
           <Breadcrumb>
             <Breadcrumb-item href="/home">首页</Breadcrumb-item>
-            <Breadcrumb-item href="#">{{bread1[0].title}}</Breadcrumb-item>
-            <Breadcrumb-item>{{bread2.name}}</Breadcrumb-item>
+            <Breadcrumb-item :href="nave_checked.path1">{{nave_checked.title1}}</Breadcrumb-item>
+            <Breadcrumb-item :href="nave_checked.path2">{{nave_checked.title2}}</Breadcrumb-item>
           </Breadcrumb>
         </div>
         <div class="layout-content">
@@ -135,27 +135,39 @@
 <script>
   export default {
       computed: {
-        bread1 () {
-            return this.naveList.filter(item => {
-                return item.menu_name === this.openNames[0];
-            })
-        }
       },
     watch: {
       $route (val, oldVal) {
-        console.log(val.path);
         this.$refs.leftMenu.currentActiveName = val.path;
+        this.naveList.map(item => {
+          item.item.map(_item => {
+            if(_item.path === val.path){
+              this.nave_checked.openName = [item.menu_name];
+              this.nave_checked.path1 = item.path;
+              this.nave_checked.title1 = item.title;
+              this.nave_checked.path2 = _item.path;
+              this.nave_checked.title2 = _item.name;
+              return;
+            }
+          })
+        });
       }
     },
     data () {
       return {
         current_menu: "",
-        openNames: ['1'],
-        bread2: {},
+        nave_checked: {
+          openName: ['1'],
+          path1: '/home',
+          title1: '订单管理',
+          path2: '/home',
+          title2: '订单大厅',
+        },
         naveList: [
           {
             menu_name: "1",
             title: '订单管理',
+            path: '/home',
             item: [
               {
                 path: '/home',
@@ -170,6 +182,7 @@
           {
             menu_name: "2",
             title: '会员管理',
+            path: '/user',
             item: [
               {
                 path: '/user',
@@ -187,13 +200,6 @@
     methods: {
       goPath (name) {
         this.$router.push({path: name, params: {userId: 123}});
-        this.bread1[0].item.map(item => {
-            if(item.path === this.$route.path){
-              this.bread2 = item
-            }
-        });
-        console.log(JSON.stringify(this.bread2));
-
       }
     }
 

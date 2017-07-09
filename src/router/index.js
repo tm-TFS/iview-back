@@ -19,7 +19,7 @@
 
 import Home from '@/components/order/Home';
 import Order from '@/components/order/Order';
-import User from '@/components/User';
+import User from '@/components/user/User';
 import Login from '@/components/Login';
 
 const routers = [

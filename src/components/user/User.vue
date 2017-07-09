@@ -26,8 +26,8 @@
   </div>
 </template>
 <script>
-  import ISelect from "../../node_modules/iview/src/components/select/select";
-  import m_img from "../assets/moren.png";
+  import ISelect from "../../../node_modules/iview/src/components/select/select";
+  import m_img from "../../assets/moren.png";
   export default {
     data () {
       return {

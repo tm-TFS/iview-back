@@ -28,11 +28,16 @@
 <script>
   import ISelect from "../../../node_modules/iview/src/components/select/select";
   export default {
+    mounted() {
+      this.getServerList();
+      this.getRateList();
+    },
     data () {
       return {
+        loading: true,
         server_model: '',
         price_model: 0,
-        cityList: [
+        serverList: [
           {
             value: 'wx01',
             label: '微信一区'
@@ -60,48 +65,25 @@
             key: 'address'
           }
         ],
-        rateList: [
-          {
-            name: '王小明',
-            age: 18,
-            address: '北京市朝阳区芍药居'
-          },
-          {
-            name: '张小刚',
-            age: 25,
-            address: '北京市海淀区西二旗'
-          },
-          {
-            name: '李小红',
-            age: 30,
-            address: '上海市浦东新区世纪大道'
-          },
-          {
-            name: '周小伟',
-            age: 26,
-            address: '深圳市南山区深南大道'
-          },
-          {
-            name: '王小明',
-            age: 18,
-            address: '北京市朝阳区芍药居'
-          },
-          {
-            name: '张小刚',
-            age: 25,
-            address: '北京市海淀区西二旗'
-          },
-          {
-            name: '李小红',
-            age: 30,
-            address: '上海市浦东新区世纪大道'
-          },
-          {
-            name: '周小伟',
-            age: 26,
-            address: '深圳市南山区深南大道'
-          }
-        ]
+        rateList: []
+      }
+    },
+    methods: {
+      getRateList () {
+        api.fetchPost(api.path.getRateList, params).then((data) => {
+          //控制加载条
+          this.loading = false;
+          this.rateList = data.list;
+        }).catch(err => {
+          this.$Message.error(err);
+        })
+      },
+      getServerList () {
+        api.fetchPost(api.path.getServerList, params).then((data) => {
+          this.serverList = data.list;
+        }).catch(err => {
+          this.$Message.error(err);
+        })
       }
     },
     components: {ISelect}
