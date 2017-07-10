@@ -17,9 +17,9 @@
  })
  */
 
-import Home from '@/components/Home';
-import User from '@/components/User';
-import Order from '@/components/Order';
+import Home from '@/components/order/Home';
+import Order from '@/components/order/Order';
+import User from '@/components/user/User';
 import Login from '@/components/Login';
 
 const routers = [

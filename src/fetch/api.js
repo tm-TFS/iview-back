@@ -5,7 +5,7 @@ function fetchPost(url, params = {}) {
   //请求加载
   let token = getCookie('token'); //h5 的浏览器缓存
   if (token) {
-    params.token = `token${token}`;
+    params.token = token;
   }
 
   return new Promise((resolve, reject) => {
@@ -22,10 +22,18 @@ function fetchPost(url, params = {}) {
         reject(response.data.msg);
         return;
       }*/
+      console.log('返回数据 === '  + JSON.stringify(response));
+
       if(response.data.status !== 1){
         reject(response.data.msg);
         return;
       }
+
+
+      if(response.data.token){
+        setCookie('token',response.data.token);
+      }
+
       resolve(response.data.content);
     })
   })
@@ -53,10 +61,17 @@ function getCookie(name) {
   return window.localStorage.getItem(name);
 }
 
+const path = {
+  login: 'common/login',
+  getRateList: 'order/getRateList',
+  getServerList: 'order/getServerList'
+};
+
 export default {
   fetchPost,
   fetchGet,
   clearCookie,
   setCookie,
-  getCookie
+  getCookie,
+  path
 }

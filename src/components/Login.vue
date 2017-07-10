@@ -41,7 +41,9 @@
     top: 0; left: 0; bottom: 0; right: 0;
   }
 </style>
+
 <script>
+  import md5 from 'md5';
   import api from '@/fetch/api';
 
   let app = {};
@@ -83,27 +85,29 @@
       handleSubmit(name) {
         this.$refs[name].validate((valid) => {
           if (valid) {
+
             let params = {
               account: this.formInline.user,
-              password: this.formInline.password
+              password: md5(this.formInline.password)
             };
-            api.fetchPost('index/test', params).then((data) => {
+            this.loading = true;
 
+            api.fetchPost(api.path.login, params).then((data) => {
               //控制加载条
-              this.loading = true;
-              setTimeout(() => {
-                this.loading = false;
-                this.$Message.success('登录成功！');
-              }, 3000);
-              api.setCookie('token',data.token);
-;
-              let redirect = this.$route.query.redirect;
-              // redirect - token 验证失败传入
-              if(redirect){
+              this.loading = false;
+              this.$Message.success('登录成功！');
+
+              api.setCookie('customerInfo',JSON.stringify(data));
+
+              setTimeout(()=>{
+                let redirect = this.$route.query.redirect;
+                // redirect - token 验证失败传入
+                if(redirect){
                   this.$router.push({path: redirect})
-              } else {
-                this.$router.push({path: '/'})
-              }
+                } else {
+                  this.$router.push({path: '/'})
+                }
+              }, 1000);
 
             }).catch(err => {
               this.$Message.error(err);
