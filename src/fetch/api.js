@@ -22,7 +22,8 @@ function fetchPost(url, params = {}) {
         reject(response.data.msg);
         return;
       }*/
-      console.log('返回数据 === '  + JSON.stringify(response));
+      console.log('返回数据 === ');
+      console.log(response);
 
       if(response.data.status !== 1){
         reject(response.data.msg);
