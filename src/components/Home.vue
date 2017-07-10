@@ -27,6 +27,7 @@
 </template>
 <script>
   import ISelect from "../../node_modules/iview/src/components/select/select";
+  import api from '@/fetch/api';
   export default {
     data () {
       return {
@@ -103,6 +104,11 @@
           }
         ]
       }
+    },
+    mounted () {
+      api.fetchPost('index/test', {}).then((data)=>{
+          console.log(data);
+      })
     },
     components: {ISelect}
   };
