@@ -7,7 +7,8 @@ function fetchPost(url, params = {}) {
   if (token) {
     params.token = token;
   }
-
+  console.log('请求数据');
+  console.log(params);
   return new Promise((resolve, reject) => {
     axios({
       method: 'post',
@@ -64,8 +65,8 @@ function getCookie(name) {
 
 const path = {
   login: 'common/login',
+  getServerList: 'common/getServerList',
   getRateList: 'order/getRateList',
-  getServerList: 'order/getServerList'
 };
 
 export default {

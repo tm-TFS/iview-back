@@ -18,6 +18,7 @@
  */
 
 import Home from '@/components/order/Home';
+import rateDetail from '@/components/order/RateDetail';
 import Order from '@/components/order/Order';
 import User from '@/components/user/User';
 import Login from '@/components/Login';
@@ -31,6 +32,11 @@ const routers = [
     path: '/home',
     name: 'home',
     component: Home
+  },
+  {
+    path: '/home/detail',
+    name: 'rateDetail',
+    component: rateDetail
   },
   {
     path: '/order',

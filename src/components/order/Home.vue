@@ -9,18 +9,15 @@
     <div class="layout-content-main">
       <Row class="s_search" >
         <i-col span="20">
-            <span>
-              所在区服
-              <i-select v-model="server_model" size="small" style="width:100px">
-                <Option v-for="item in serverList" :value="item.value" :key="item">{{ item.label }}</Option>
-              </i-select>
-            </span>
-          <i-input v-model="server_model" placeholder="发布频道" style="width: 200px"></i-input>
-          <Input-number v-model="price_model" :min="1"  style="width: 200px"></Input-number>
-          <i-input v-model="server_model" placeholder="所在区服..." style="width: 200px"></i-input>
+          <Cascader :data="serverList" v-model="checkServer" trigger="hover" style="width: 200px" placeholder="所在区服..." filterable></Cascader>
+          <Select v-model="publish_model" style="width:200px" placeholder="发布频道...">
+            <Option v-for="item in publishList" :value="item.value" :key="item.value" >{{ item.label }}</Option>
+          </Select>
+          <i-input v-model="customer_model" placeholder="发布人昵称..." style="width: 200px"></i-input>
+          <i-input v-model="title_model" placeholder="标题..." style="width: 200px"></i-input>
         </i-col>
         <i-col span="4">
-          <i-button type="primary">Primary</i-button>
+          <i-button type="primary" @click="getRateList(1)">查询</i-button>
         </i-col>
       </Row>
       <Row >
@@ -49,10 +46,26 @@
       return {
         userInfo: {},
         loading: true,
-        server_model: '',
-        price_model: 0,
+        customer_model: '',
+        title_model: '',
         totalPage: 10,
         serverList: [],
+        checkServer: [],
+        publishList: [
+          {
+            value: 0,
+            label: '全部频道'
+          },
+          {
+            value: 1,
+            label: '优质订单'
+          },
+          {
+            value: 2,
+            label: '公共频道'
+          },
+        ],
+        publish_model: "",
         rateCol: [
           {
             title: 'ID',
@@ -111,7 +124,7 @@
                   },
                   on: {
                     click: () => {
-                      this.show(params.index)
+                      this.showDetail(params.index)
                     }
                   }
                 }, '查看'),
@@ -137,11 +150,29 @@
     methods: {
       getRateList (pageId) {
         this.pageId = pageId || this.pageId;
-        alert(this.pageId);
         let params = {
           customerId: this.customerInfo.id,
           pageId: this.pageId
         };
+
+        if(this.checkServer.length && this.checkServer.length === 2){
+          params.serverId = this.checkServer[1];
+        }
+
+        if(this.publish_model){
+          params.publishId = this.publish_model;
+        }
+
+        if(this.title_model){
+          params.title = this.title_model;
+        }
+
+        if(this.customer_model){
+          params.name = this.customer_model;
+        }
+
+        console.log('params' + JSON.stringify(this.checkServer));
+
         api.fetchPost(api.path.getRateList, params).then((data) => {
           //控制加载条
           this.loading = false;
@@ -157,10 +188,13 @@
           pageId: this.pageId
         };
         api.fetchPost(api.path.getServerList, params).then((data) => {
-          this.serverList = data.list;
+          this.serverList = data;
         }).catch(err => {
           this.$Message.error(err);
         })
+      },
+      showDetail(){
+        this.$router.push({path: name, params: {userId: 123}});
       }
     },
     components: {ISelect}
