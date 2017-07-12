@@ -1,199 +1,200 @@
-<style scoped>
-</style>
 <template>
+
   <div class="app">
     <div class="layout-content-main">
-      <i-col span="24" class="content">
-        <div >
+      <div style="background:#eee;padding: 5px">
+
+        <Card :bordered="false">
+
           <Row>
-            <i-button @click="save()" :disabled="ifdisabled" icon="checkmark-round"
-                      type="primary" icon="checkmark-round">保存
-            </i-button>
-          </Row>
-        </div>
-        <Card class="mt-15">
-          <Row>
-            <!--左边-->
-            <i-col span="12">
-              <Row>
-                <i-col span="5">
-                  ID:
-                </i-col>
-                <i-col span="19">
-                  {{ '自动生成'}}
-                </i-col>
-              </Row>
-              <Row>
-                <i-col span="5">
-                  *轮播图名称：
-                </i-col>
-                <i-col span="19">
-                  <i-input
-                    class="input-80p"
-                  >
-                  </i-input>
-                </i-col>
-              </Row>
-
-              <Row>
-                <i-col span="5">
-                  *所在城市:
-                </i-col>
-                <i-col span="19">
-                  <div >
-                    <i-button @click="select_city_model = true">{{123}}</i-button>
-                    <i-button icon="plus-round" @click="city_model = true" :disabled="1"></i-button>
-                  </div>
-                </i-col>
-              </Row>
-
-              <Row>
-                <i-col span="5">
-                  *图片:
-                </i-col>
-                <i-col span="19">
-                  <Row>
-                    <i-col span="6">
-                      <img :src="" alt="" style="width: 90%;min-height:110px;border:solid 1px #d7dde4"
-                           alt="还未上传"/>
-                    </i-col>
-                    <i-col span="4" style="position:relative;">
-                      <input type="file" accept="image/gif,image/jpeg,image/jpg,image/png"
-                             style="position: absolute;opacity: 0.01;width: 100%;z-index: 10;"
-                             @change="imgChange($event)"/>
-                      <i-button :disabled="1">上传</i-button>
-                    </i-col>
-                    <i-col span="12">
-                      建议尺寸: 100 * 100
-                    </i-col>
-                  </Row>
-
-                </i-col>
-              </Row>
-
+            <i-col span="16">
+              <i-button type="error">撤下</i-button>
             </i-col>
-            <!--右边-->
-            <i-col span="12">
-
-              <Row>
-                <i-col span="5">
-                  状态：
-                </i-col>
-                <i-col span="19">
-                  <tag color="red">{{123}}</tag>
-                </i-col>
-              </Row>
-
-              <Row>
-                <i-col span="5">
-                  *轮播图类型:
-                </i-col>
-                <i-col span="19">
-                  <i-select  style="width:200px">
-                    <i-option >{{123}}</i-option>
-                  </i-select>
-                </i-col>
-              </Row>
-
-              <Row>
-                <i-col span="5">
-                  创建人:
-                </i-col>
-                <i-col span="19">
-                  123
-                </i-col>
-              </Row>
-              <Row>
-                <i-col span="5">
-                  修改人:
-                </i-col>
-                <i-col span="19">
-                  3123
-                </i-col>
-              </Row>
-
-              <Row>
-                <i-col span="5">
-                  审核人:
-                </i-col>
-                <i-col span="19">
-                  123
-                </i-col>
-              </Row>
-              <Row>
-
-                <i-col span="5">
-                  审核时间:
-                </i-col>
-                <i-col span="19">
-                  13
-                </i-col>
-              </Row>
-
-              <Row >
-                <i-col span="5">
-                  理由:
-                </i-col>
-                <i-col span="19">
-                  123
-                </i-col>
-              </Row>
-
+            <i-col span="8" style="text-align: right">
+              <i-button @click="goBack()">返回</i-button>
+              <i-button type="info" @click="save()">保存</i-button>
             </i-col>
-
           </Row>
-          <!--<Row>
-            <Tabs type="card" style="margin-top: 25px;">
-              <Tab-pane label="商品信息">
-                <div v-show="queryResult.CarouselType == 1 || queryResult.CarouselType == 2">
-                  <div style="margin-bottom: 10px;">
-                    <i-button size="large" icon="plus-round" @click="add_model = true">添加商品</i-button>
-                    <i-button size="large" icon="close-round" @click="delGoods()">删除商品</i-button>
-                  </div>
-                  <i-table
-                    v-bind:border="showBorder"
-                    v-bind:stripe="showStripe"
-                    v-bind:show-header="showHeader"
-                    v-bind:size="tableSize"
-                    v-bind:data="items"
-                    v-bind:content="self"
-                    v-bind:columns="theader1"
-                    @on-selection-change="goodsSelectChange">
-                  </i-table>
-                </div>
-                <div v-show="queryResult.CarouselType == 3">
-                  <Row>
-                    <i-col span="3">
-                      请输入链接:
-                    </i-col>
-                    <i-col span="18">
-                      <i-input :value.sync="queryResult.LinkUrl"></i-input>
-                    </i-col>
-                  </Row>
-                </div>
-              </Tab-pane>
-              <Tab-pane label="操作日志">
-                <i-table
-                  v-bind:border="showBorder"
-                  v-bind:stripe="showStripe"
-                  v-bind:show-header="showHeader"
-                  v-bind:size="tableSize"
-                  v-bind:data="logItems"
-                  v-bind:content="self"
-                  v-bind:columns="theader2">
-                </i-table>
-              </Tab-pane>
-            </Tabs>
-          </Row>-->
         </Card>
-      </i-col>
+
+        <!-- 订单基本信息 -->
+        <Card :bordered="true">
+          <p slot="title">基本信息： </p>
+          <Row>
+            <i-col span="12">
+              订单标题： {{ detail.title }}
+            </i-col>
+            <i-col span="12">
+              发布人： {{ detail.customerName }}
+            </i-col>
+          </Row>
+          <Row>
+            <i-col span="12">
+              发布价格： {{ detail.price }}
+            </i-col>
+            <i-col span="12">
+              时间限制： {{ detail.timeLimit }} 小时
+            </i-col>
+          </Row>
+          <Row>
+            <i-col span="12">
+              安全保证金： {{ detail.saveDeposit }} 元  <span style="color: red">(针对接单用户)</span>
+            </i-col>
+            <i-col span="12">
+              效率保证金： {{ detail.efficiencyDeposit }} 元 <span style="color: red">(针对接单用户)</span>
+            </i-col>
+          </Row>
+          <Row>
+            <i-col span="12">
+              发布频道： {{ detail.publishType === 2 ? '公共频道' : '优质订单' }}
+            </i-col>
+            <i-col span="12">
+              发布时间： {{ detail.createTime }}
+            </i-col>
+          </Row>
+          <Row>
+            订单备注：
+            <i-input v-model="detail.require" type="textarea"></i-input>
+          </Row>
+          <Row>
+            其他要求：
+            <i-input v-model="detail.other" type="textarea"></i-input>
+          </Row>
+        </Card>
+
+        <!--账号信息-->
+        <Card :bordered="true">
+          <p slot="title">账号信息： </p>
+          <Row>
+            <i-col span="12">
+              所在区服： {{ detail.serverName }}
+            </i-col>
+            <i-col span="12">
+              游戏昵称： {{ detail.nickname }}
+            </i-col>
+          </Row>
+          <Row>
+            <i-col span="12">
+              游戏账号： {{ detail.account }}
+            </i-col>
+            <i-col span="12">
+              游戏密码： {{ detail.password }}
+            </i-col>
+          </Row>
+          <Row>
+            <i-col span="12">
+              联系人手机： {{ detail.connectMobil }}
+            </i-col>
+            <i-col span="12">
+              联系人微信： {{ detail.wechatNum }}
+            </i-col>
+          </Row>
+          <Row>
+            <i-col span="12">
+              验证码手机： {{ detail.codeMobil }}
+            </i-col>
+          </Row>
+        </Card>
+
+        <!--发布人信息-->
+        <Card :bordered="true">
+          <p slot="title">发布人信息： </p>
+          <Row>
+            <i-col span="12">
+              发布人编号： {{ detail.customerId }}
+            </i-col>
+            <i-col span="12">
+              发布人： {{ detail.customerName }}
+            </i-col>
+          </Row>
+          <Row>
+            <i-col span="12">
+              创建时间： {{ detail.createTime }}
+            </i-col>
+            <i-col span="12">
+              更新时间： {{ detail.updateTime }}
+            </i-col>
+          </Row>
+        </Card>
+      </div>
 
     </div>
   </div>
 </template>
+
+
 <script>
   import api from '@/fetch/api';
   export default {
+    beforeMount () {
+      this.customerInfo = JSON.parse(api.getCookie('customerInfo'));
+    },
+    mounted() {
+      this.getServerList();
+      this.getRateDetail();
+    },
+    data () {
+      return {
+        userInfo: {},
+        loading: true,
+        detail: {},
+        serverList: [],
+        publishList: [
+          {
+            value: 0,
+            label: '全部频道'
+          },
+          {
+            value: 1,
+            label: '优质订单'
+          },
+          {
+            value: 2,
+            label: '公共频道'
+          },
+        ],
+        publish_model: "",
+        requireModel: "",
+        otherModel: ""
+      }
+    },
+    methods: {
+      goBack () {
+        this.$router.push({path: '/home'});
+      },
+      save() {
+        console.log(this.detail);
+      },
+      getRateDetail () {
+        let orderId = this.$route.params.id;
+        if(!orderId){
+          this.$Message.error('订单编号错误');
+          return;
+        }
+        let params = {
+          customerId: this.customerInfo.id,
+          orderId: orderId
+        };
 
+        api.fetchPost(api.path.getRateDetail, params).then((data) => {
+          //控制加载条
+          this.loading = false;
+          this.detail = data;
+        }).catch(err => {
+          this.$Message.error(err);
+          this.$router.replace({path: '/home'});
+        })
+      },
+      getServerList () {
+        let params = {
+          customerId: this.customerInfo.id
+        };
+        api.fetchPost(api.path.getServerList, params).then((data) => {
+          this.serverList = data;
+        }).catch(err => {
+          this.$Message.error(err);
+        })
+      }
+    }
   };
 </script>

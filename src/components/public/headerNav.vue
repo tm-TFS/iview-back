@@ -73,7 +73,7 @@
     <Row type="flex">
       <i-col span="3" class="layout-menu-left">
         <Menu active-name="/home" ref="leftMenu" theme="dark" width="auto" :accordion="true" :open-names="[nave_checked.openName]" @on-select="goPath">
-          <div class="layout-logo-left"></div>
+          <div class="layout-logo-left" style="text-align: center; "><sapn >八角星网络</sapn></div>
 
           <Submenu v-for="nav in naveList" :key="nav.menu_name" :name="nav.menu_name" >
             <template slot="title">
@@ -126,7 +126,7 @@
           </div>
         </div>
         <div class="layout-copy">
-          2011-2016 &copy; TalkingData
+          2011-2016 &copy; 八角星网络
         </div>
       </i-col>
     </Row>
@@ -138,10 +138,19 @@
       },
     watch: {
       $route (val, oldVal) {
-        this.$refs.leftMenu.currentActiveName = val.path;
+        //路由可能有 两种情况 /home 或 /home/detail/1 长度超过2
+        let _route = val.path.split('/');
+        let route = "";
+        if(_route.length && _route.length !== 2){
+          route = '/' + _route[1]; //取到home
+        } else {
+          route = val.path;
+        }
+
+        this.$refs.leftMenu.currentActiveName = route;
         this.naveList.map(item => {
           item.item.map(_item => {
-            if(_item.path === val.path){
+            if(_item.path === route){
               this.nave_checked.openName = [item.menu_name];
               this.nave_checked.path1 = item.path;
               this.nave_checked.title1 = item.title;

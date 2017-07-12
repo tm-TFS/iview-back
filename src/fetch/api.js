@@ -67,6 +67,7 @@ const path = {
   login: 'common/login',
   getServerList: 'common/getServerList',
   getRateList: 'order/getRateList',
+  getRateDetail: 'order/getRateDetail',
 };
 
 export default {

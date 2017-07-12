@@ -34,7 +34,7 @@ const routers = [
     component: Home
   },
   {
-    path: '/home/detail',
+    path: '/home/detail/:id',
     name: 'rateDetail',
     component: rateDetail
   },

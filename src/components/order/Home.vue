@@ -194,7 +194,7 @@
         })
       },
       showDetail(){
-        this.$router.push({path: name, params: {userId: 123}});
+        this.$router.push({path: '/home/detail/1', params: {userId: 123}});
       }
     },
     components: {ISelect}

@@ -31,7 +31,7 @@ axios.interceptors.response.use((res) =>{
     switch (error.response.status) {
       case 401:
         router.replace({
-          path: '/home',
+          path: '/login',
           params: {redirect: router.currentRoute.fullPath}
         })
     }
