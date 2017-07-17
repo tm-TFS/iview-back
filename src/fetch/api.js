@@ -7,8 +7,6 @@ function fetchPost(url, params = {}) {
   if (token) {
     params.token = token;
   }
-  console.log('请求数据');
-  console.log(params);
   return new Promise((resolve, reject) => {
     axios({
       method: 'post',
@@ -60,6 +58,13 @@ function setCookie(name, value) {
 }
 
 function getCookie(name) {
+  //获取缓存时，判断是否登录
+  if(name === 'customerInfo' && !window.localStorage.getItem(name)){
+    router.replace({
+      path: '/login',
+      params: {redirect: router.currentRoute.fullPath}
+    })
+  }
   return window.localStorage.getItem(name);
 }
 
@@ -68,6 +73,9 @@ const path = {
   getServerList: 'common/getServerList',
   getRateList: 'order/getRateList',
   getRateDetail: 'order/getRateDetail',
+  getCustomerList: 'Customer/getCustomerList',
+  getCustomerDetail: 'Customer/getCustomerDetail',
+  getSettlementList: 'Settlement/getSettlementList',
 };
 
 export default {

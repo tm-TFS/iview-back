@@ -72,12 +72,12 @@
     watch: {
       loading (val, oldVal) {
         if(val){
-          app.$Message.loading({
+          this.$Message.loading({
             content: '正在加载中...',
             duration: 0
           });
         } else {
-          app.$Message.destroy();
+          this.$Message.destroy();
         }
       }
     },

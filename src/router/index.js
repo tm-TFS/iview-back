@@ -19,6 +19,7 @@
 
 import Home from '@/components/order/Home';
 import rateDetail from '@/components/order/RateDetail';
+import userDetail from '@/components/user/userDetail';
 import Order from '@/components/order/Order';
 import User from '@/components/user/User';
 import Login from '@/components/Login';
@@ -49,6 +50,11 @@ const routers = [
     name: 'user',
     component: User,
     meta: { requiresAuth: true }
+  },
+  {
+    path: '/user/detail/:id',
+    name: 'userDetail',
+    component: userDetail
   },
   {
     path: '/login',

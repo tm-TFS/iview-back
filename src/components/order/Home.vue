@@ -40,7 +40,6 @@
   export default {
     beforeMount () {
       this.customerInfo = JSON.parse(api.getCookie('customerInfo'));
-      console.log(this.customerInfo);
     },
     mounted() {
       this.getServerList();
@@ -94,7 +93,7 @@
           },
           {
             title: '发布人昵称',
-            key: 'customerName'
+            key: 'publishName'
           },
           {
             title: '发布时间',
@@ -135,7 +134,7 @@
             key: 'title'
           },
           {
-            title: '安全保证金',
+            title: '发布价格',
             key: 'saveDeposit',
             sortable: 'custom'
           },
@@ -190,9 +189,7 @@
     },
     methods: {
       search (pageId, sorts){
-        if (pageId) {
-          this.searchParams.pageId = pageId || this.pageId;
-        }
+        this.pageId = pageId || this.pageId;
         //传入排序字段
         if (sorts) {
           this.searchParams.sortKey = sorts.key;
@@ -244,7 +241,6 @@
         this.$router.push({path: '/home/detail/' + id});
       },
       beSort(data){
-        console.log(data);
         this.search(1, data);
       }
     },

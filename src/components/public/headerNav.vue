@@ -73,7 +73,7 @@
     <Row type="flex">
       <i-col span="3" class="layout-menu-left">
         <Menu active-name="/home" ref="leftMenu" theme="dark" width="auto" :accordion="true" :open-names="[nave_checked.openName]" @on-select="goPath">
-          <div class="layout-logo-left" style="text-align: center; "><sapn >八角星网络</sapn></div>
+          <div class="layout-logo-left" style="text-align: center; "><span >八角星网络</span></div>
 
           <Submenu v-for="nav in naveList" :key="nav.menu_name" :name="nav.menu_name" >
             <template slot="title">
