@@ -19,7 +19,7 @@
 
 import Home from '@/components/order/Home';
 import rateDetail from '@/components/order/RateDetail';
-import userDetail from '@/components/user/userDetail';
+import userDetail from '@/components/user/UserDetail';
 import Order from '@/components/order/Order';
 import User from '@/components/user/User';
 import Login from '@/components/Login';
