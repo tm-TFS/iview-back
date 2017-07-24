@@ -126,9 +126,6 @@
 <script>
   import api from '@/fetch/api';
   export default {
-    beforeMount () {
-      this.customerInfo = JSON.parse(api.getCookie('customerInfo'));
-    },
     mounted() {
       this.getServerList();
       this.getRateDetail();
@@ -172,7 +169,6 @@
           return;
         }
         let params = {
-          customerId: this.customerInfo.id,
           orderId: orderId
         };
 
@@ -186,9 +182,7 @@
         })
       },
       getServerList () {
-        let params = {
-          customerId: this.customerInfo.id
-        };
+        let params = {};
         api.fetchPost(api.path.getServerList, params).then((data) => {
           this.serverList = data;
         }).catch(err => {

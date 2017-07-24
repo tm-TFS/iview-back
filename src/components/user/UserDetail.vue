@@ -19,7 +19,9 @@
 
               <Row>
                 <i-col span="16">
-                  <i-button type="error">禁用</i-button>
+                  <i-button type="error" @click="disable()" :loading="loading" v-show="detail.status">禁用</i-button>
+                  <i-button type="error" @click="enable()" :loading="loading" v-show="!detail.status">启用</i-button>
+                  <i-button type="info" @click="rechargeModel = true" :loading="loading">充值</i-button>
                 </i-col>
                 <i-col span="8" style="text-align: right">
                   <i-button @click="goBack()">返回</i-button>
@@ -27,6 +29,14 @@
                 </i-col>
               </Row>
             </Card>
+
+            <Modal
+              v-model="rechargeModel"
+              title="请输入充值的金额"
+              @on-ok="recharge()"
+              @on-cancel="rechargeModel = false">
+              <Input-number :min="1" v-model="rechargeAmount"></Input-number>
+            </Modal>
 
             <!-- 用户基本信息 -->
             <Card :bordered="true">
@@ -115,7 +125,7 @@
   import m_img from "../../assets/moren.png";
   export default {
     beforeMount () {
-      this.customerInfo = JSON.parse(api.getCookie('customerInfo'));
+      this.userInfo = JSON.parse(api.getCookie('userInfo'));
     },
     mounted() {
       this.getCustomerDetail();
@@ -134,6 +144,8 @@
     },
     data () {
       return {
+        rechargeModel: false,
+        rechargeAmount: 0,
         tabValue: '1',
         typeList: [
           {
@@ -163,7 +175,8 @@
           {
             title: '流水编码',
             key: 'id',
-            width: 120
+            width: 120,
+            align: 'center'
           },
           {
             title: '操作类型',
@@ -210,6 +223,13 @@
               } else {
                 return '系统';
               }
+            }
+          },
+          {
+            title: '交易金额',
+            key: 'amount',
+            render: (h,params) => {
+              return '￥' + params.row.amount;
             }
           },
           {
@@ -279,6 +299,53 @@
       }
     },
     methods: {
+      disable () {
+        this.loading = true;
+        let params = {
+          customerId : this.detail.id
+        };
+        api.fetchPost(api.path.disableCustomer, params).then((data) => {
+          //控制加载条
+          this.loading = false;
+          this.$Message.success('操作成功');
+          //重新查询详情
+          this.getCustomerDetail();
+        }).catch(err => {
+          this.$Message.error(err);
+          this.loading = false;
+        })
+      },
+      enable () {
+        this.loading = true;
+        let params = {
+          customerId : this.detail.id
+        };
+        api.fetchPost(api.path.enableCustomer, params).then((data) => {
+          //控制加载条
+          this.loading = false;
+          this.$Message.success('操作成功');
+          this.getCustomerDetail();
+        }).catch(err => {
+          this.$Message.error(err);
+          this.loading = false;
+        })
+      },
+      recharge (){
+        this.loading = true;
+        let params = {
+          walletId: this.detail.id,
+          amount: this.rechargeAmount
+        };
+        api.fetchPost(api.path.recharge, params).then((data) => {
+          //控制加载条
+          this.loading = false;
+          this.detail = data;
+          this.getCustomerDetail();
+        }).catch(err => {
+          this.$Message.error(err);
+          this.$router.replace({path: '/user'});
+        })
+      },
       goBack () {
         this.$router.push({path: '/user'});
       },
@@ -292,7 +359,8 @@
           return;
         }
         let params = {
-          customerId: customerId
+          customerId: customerId,
+          uid: this.userInfo.id
         };
 
         api.fetchPost(api.path.getCustomerDetail, params).then((data) => {

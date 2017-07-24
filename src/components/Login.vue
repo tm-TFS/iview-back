@@ -97,7 +97,7 @@
               this.loading = false;
               this.$Message.success('登录成功！');
 
-              api.setCookie('customerInfo',JSON.stringify(data));
+              api.setCookie('userInfo',JSON.stringify(data));
 
               setTimeout(()=>{
                 let redirect = this.$route.query.redirect;

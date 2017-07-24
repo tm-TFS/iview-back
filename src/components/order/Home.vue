@@ -38,16 +38,12 @@
   import ISelect from "../../../node_modules/iview/src/components/select/select";
   import api from '@/fetch/api';
   export default {
-    beforeMount () {
-      this.customerInfo = JSON.parse(api.getCookie('customerInfo'));
-    },
     mounted() {
       this.getServerList();
       this.search();
     },
     data () {
       return {
-        userInfo: {},
         searchParams: {},
         loading: true,
         customer_model: '',
@@ -189,6 +185,7 @@
     },
     methods: {
       search (pageId, sorts){
+        this.loading = true;
         this.pageId = pageId || this.pageId;
         //传入排序字段
         if (sorts) {
@@ -198,7 +195,6 @@
         this.getRateList();
       },
       getRateList () {
-        this.searchParams.customerId = this.customerInfo.id;
         this.searchParams.pageId = this.pageId;
         this.searchParams.receive_model = this.receive_model;
         this.searchParams.publishId = this.publish_model;
@@ -228,7 +224,6 @@
       },
       getServerList () {
         let params = {
-          //customerId: this.customerInfo.id,
           pageId: this.pageId
         };
         api.fetchPost(api.path.getServerList, params).then((data) => {

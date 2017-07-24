@@ -4,8 +4,12 @@ import router from '../main';
 function fetchPost(url, params = {}) {
   //请求加载
   let token = getCookie('token'); //h5 的浏览器缓存
+  let userInfo = JSON.parse(getCookie('userInfo'));
   if (token) {
     params.token = token;
+  }
+  if(userInfo){
+    params.uid = userInfo.id;
   }
   return new Promise((resolve, reject) => {
     axios({
@@ -14,16 +18,10 @@ function fetchPost(url, params = {}) {
       params: params
     }).then((response) => {
 
-      //未登录 或者 登录过期
-      /*if (response.status === 401) {
-        clearCookie('token');
-        window.location.pathname = '/login';
-        reject(response.data.msg);
-        return;
-      }*/
       console.log('返回数据 === ');
       console.log(response);
 
+      console.log('status == ' + response.data.content);
       if(response.data.status !== 1){
         reject(response.data.msg);
         return;
@@ -59,7 +57,7 @@ function setCookie(name, value) {
 
 function getCookie(name) {
   //获取缓存时，判断是否登录
-  if(name === 'customerInfo' && !window.localStorage.getItem(name)){
+  if(name === 'userInfo' && !window.localStorage.getItem(name)){
     router.replace({
       path: '/login',
       params: {redirect: router.currentRoute.fullPath}
@@ -74,8 +72,11 @@ const path = {
   getRateList: 'order/getRateList',
   getRateDetail: 'order/getRateDetail',
   getCustomerList: 'Customer/getCustomerList',
+  disableCustomer: 'Customer/disableCustomer',
+  enableCustomer: 'Customer/enableCustomer',
   getCustomerDetail: 'Customer/getCustomerDetail',
   getSettlementList: 'Settlement/getSettlementList',
+  recharge: 'Settlement/recharge',
 };
 
 export default {

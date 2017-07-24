@@ -35,9 +35,6 @@
   import m_img from "../../assets/moren.png";
   import api from '@/fetch/api';
   export default {
-    beforeMount () {
-      this.customerInfo = JSON.parse(api.getCookie('customerInfo'));
-    },
     mounted() {
       this.search();
     },
@@ -90,7 +87,6 @@
     },
     data () {
       return {
-        userInfo: {},
         loading: true,
         totalPage: 10,
         searchParams: {
