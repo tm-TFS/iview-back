@@ -84,31 +84,6 @@
               {{ item.name }}
             </Menu-item>
           </Submenu>
-
-          <!--<Submenu name="1">
-            <template slot="title">
-              <Icon type="ios-navigate"></Icon>
-              订单管理
-            </template>
-            <Menu-item name="/home">任务大厅</Menu-item>
-            <Menu-item name="/order">已接订单</Menu-item>
-          </Submenu>
-          <Submenu name="2">
-            <template slot="title">
-              <Icon type="ios-keypad"></Icon>
-              导航二
-            </template>
-            <Menu-item name="2-1">选项 1</Menu-item>
-            <Menu-item name="2-2">选项 2</Menu-item>
-          </Submenu>
-          <Submenu name="3">
-            <template slot="title">
-              <Icon type="ios-analytics"></Icon>
-              导航三
-            </template>
-            <Menu-item name="3-1">选项 1</Menu-item>
-            <Menu-item name="3-2">选项 2</Menu-item>
-          </Submenu>-->
         </Menu>
       </i-col>
       <i-col span="21">
@@ -200,6 +175,25 @@
               {
                 path: '/user/role',
                 name: '会员权限'
+              },
+            ]
+          },
+          {
+            menu_name: "3",
+            title: '个人信息',
+            path: '/mine',
+            item: [
+              {
+                path: '/mine',
+                name: '个人资料'
+              },
+              {
+                path: '/changeMine',
+                name: '修改资料'
+              },
+              {
+                path: '/changePassword',
+                name: '修改密码'
               },
             ]
           },

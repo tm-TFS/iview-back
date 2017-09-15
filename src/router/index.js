@@ -23,6 +23,9 @@ import userDetail from '@/components/user/UserDetail';
 import Order from '@/components/order/Order';
 import User from '@/components/user/User';
 import Login from '@/components/Login';
+import mine from '@/components/mine/mine';
+import changeMine from '@/components/mine/changeMine';
+import changePassword from '@/components/mine/changePassword';
 
 const routers = [
   {
@@ -60,6 +63,21 @@ const routers = [
     path: '/login',
     name: 'login',
     component: Login
+  },
+  {
+    path: '/mine',
+    name: 'mine',
+    component: mine
+  },
+  {
+    path: '/changeMine',
+    name: 'changeMine',
+    component: changeMine
+  },
+  {
+    path: '/changePassword',
+    name: 'changePassword',
+    component: changePassword
   }
 ];
 export default routers;
